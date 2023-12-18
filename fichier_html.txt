@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ma Page HTML</title>
+</head>
+<body>
+
+    <h1>Bonjour, je suis en Licence à ESIEE-IT</h1>
+
+</body>
+</html>
