@@ -19,7 +19,6 @@ def List(t): # creation d'une fonction List
     print(couple) # impression des mots trier par ordre croissant 
     return couple
 
- # Etape 2
 
 def word_frequency(phrase, mot_parasite):
     mots = phrase.split()
@@ -39,21 +38,17 @@ def word_frequency(phrase, mot_parasite):
 
     return couple
 
+# Etape 2
+
+def cleaner(dual, parasites):
+    cleared = [tup for tup in dual if not ((set(parasites) & set(tup)))]
+    print(cleared)
+    return (cleared)
+
+
 # Etape 3
 
-# definition de la fonction pour filtrer les mots parasites et appeler la fonction de frequence des mots
-def without_parasites(phrase, mot_parasite):
-    mots_filtres = [mot for mot in phrase.split() if mot.lower() not in mot_parasite] # filtrer les mots parasites
-    resultat = word_frequency(" ".join(mots_filtres), mot_parasite) # appeler la fonction de frequence des mots
-    return resultat # retourner le resultat finale
-
-# appeler la fonction without_parasite avec une phrase  et les mots parasites
-mot_parasite = ["je", "le", "la", "un", "une"]
-resultat = without_parasites("Je m'appelle abdelkrim. Le livre est sur la table.", mot_parasite) 
-print(resultat) # afficher le resultat 
-
-resultat_texte = "je m'appelle Abdelkrim je suis en licence"
-List(resultat_texte)
+mot_parasite = ['le', 'la' , 'les', 'un', 'une']
 
 def get_parasite(file_path):
     file_path = r"C:\Users\abdel\OneDrive\Desktop\Licence IG\Python\mot_parasite.csv"
@@ -62,11 +57,6 @@ def get_parasite(file_path):
         words_list = [word.lower() for row in reader for word in row]
         print(words_list)
         
-                
-                
-                 
-
-
 get_parasite(r"C:\Users\abdel\OneDrive\Desktop\Licence IG\Python\mot_parasite.csv")
 
 # Etape 5
@@ -209,12 +199,9 @@ def audit_page(url, mot_parasite_file_path):
         occurrences = List(texte)
 
         mots_parasites = get_parasite(mot_parasite_file_path)
-        mots_cles = without_parasites(occurrences, mots_parasites)
+        
 
-        print("Mots clés avec les 3 premières valeurs d'occurrences :")
-        for mot, occ in list(mots_cles.items())[:3]:
-            print(f"{mot}: {occ}")
-
+    
         liens = get_attribute_values(html, 'a', 'href')
         liens_entrants = [lien for lien in liens if lien.startswith(url)]
         liens_sortants = [lien for lien in liens if not lien.startswith(url)]
