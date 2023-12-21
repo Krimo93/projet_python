@@ -5,7 +5,7 @@ import requests
 from urllib.parse import urlparse
 from bs4 import BeautifulSoup 
 
-# Etape 1
+# Etape 1 : Creation d'une liste qui renvoie une liste de mots avec leurs occurences
 
 def List(t): # creation d'une fonction List
     mots = t.split()  # separation d'une phrase en une liste de mot
@@ -20,8 +20,8 @@ def List(t): # creation d'une fonction List
     return couple
 
 
-def word_frequency(phrase, mot_parasite):
-    mots = phrase.split()
+def word_frequency(phrase, mot_parasite): # definition de la fonction de frequences des mots
+    mots = phrase.split() 
     occurences = {}
 
     for mot in mots:
@@ -38,7 +38,7 @@ def word_frequency(phrase, mot_parasite):
 
     return couple
 
-# Etape 2
+# Etape 2 : Retourne la phrase sans les mots parasites
 
 def cleaner(dual, parasites):
     cleared = [tup for tup in dual if not ((set(parasites) & set(tup)))]
@@ -46,7 +46,7 @@ def cleaner(dual, parasites):
     return (cleared)
 
 
-# Etape 3
+# Etape 3 : recuperation des mots parasite depuis un fichier csv
 
 mot_parasite = ['le', 'la' , 'les', 'un', 'une']
 
@@ -59,7 +59,7 @@ def get_parasite(file_path):
         
 get_parasite(r"C:\Users\abdel\OneDrive\Desktop\Licence IG\Python\mot_parasite.csv")
 
-# Etape 5
+# Etape 5 : Retour de la phrase sans balises HTML
 
 def no_balise(html_string):
     soup = BeautifulSoup(html_string, 'html.parser')
@@ -72,7 +72,7 @@ print(resultat)
 
 
 
-# Etape 6
+# Etape 6 : Recuperation des valeurs associes aux balises
 def get_attribute_values(html_string, tag_name, attribute_name):
     values = []
 
@@ -120,7 +120,7 @@ result_values = get_attribute_values(alt_href_content_html, tag_name_to_search, 
 
 print(f"Les valeurs associees aux balises '{tag_name_to_search}' avec l'attribut '{attribute_name_to_search}' sont : {result_values}")
 
-# Etape 8
+# Etape 8 : Extraction du nom de domaine d'une URL
 def extract_domain_from_url(url):
     try:
         # Utilise urlparse pour diviser l'URL en composants
@@ -141,10 +141,10 @@ url = "https://www.esiee-it.fr/fr"
 # Appelle la fonction extract_domain_from_url avec l'URL comme argument
 domain = extract_domain_from_url(url)
 
-# Affiche le résultat
+# Affiche le resultat
 print(f"Nom de domaine extrait : {domain}" if domain else "Impossible d'extraire le nom de domaine.")
 
-# Etape 9
+# Etape 9 : Classification des URLS en domaine interne et externe 
 def classifier_par_domaine(domaine, urls):
     internes, externes = [], []
     for url in urls:
@@ -166,7 +166,7 @@ classifier_par_domaine(domaine, urls)
 
 
 
-#Etape 10
+#Etape 10 : Recuperation d'un texte HTML depuis une URL
 
 def get_html_from_url(url):
     try:
@@ -189,7 +189,7 @@ else:
     get_html_from_url(url)
 
 
-# Etape 11
+# Etape 11 : Audit de la page HTML
 
 def audit_page(url, mot_parasite_file_path):
     html = get_html_from_url(url)
